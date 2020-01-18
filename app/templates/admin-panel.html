@@ -1,0 +1,95 @@
+{% extends "newLay.html" %}
+{% block desc %}
+{% for post in posts %}
+    <div class="jumbotron bg-light py-3 px-0 border shadow d-flex justify-content-center">
+        <div class="row m-0">
+            <div class="col-lg-3 col-md-4">
+                <div class="img-thumbnail" style="overflow:hidden; background:none;border:none;">
+                    <img src="{{url_for('static', filename='posts/'+post.image_file)}}"  alt="dsfd" style="max-width: 100%; max-height:100% ;">
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-8 align-self-center">
+                <a href="{{url_for('iso_post',post_id=post.id)}}" class="h3">{{post.title}}</a>
+                <hr>
+                <h5 class="mb-2">
+                Location:
+                    {% if post.location=='CL' %}
+                        C-lite
+                    {% elif post.location=='ME' %}
+                        Mech. Building
+                    {% elif post.location=='CV' %}
+                        Civil Building
+                    {% elif post.location=='LH' %}
+                        LHC
+                    {% elif post.location=='MB' %}
+                        Main Building
+                    {% elif post.location=='BT' %}
+                        Bio Technology
+                    {% elif post.location=='AC' %}
+                        Architecture
+                    {% elif post.location=='EC' %}
+                        E and C
+                    {% elif post.location=='MC' %}
+                        Main Canteen
+                    {% elif post.location=='Ot' %}
+                        Others
+                    {% endif %}
+                    <br>
+                    Author: {{post.author.username}}
+                    <br>
+                    Phone: {{post.author.phone}}
+                    <br>
+                    USN : {{post.author.usn}}
+                </h5>
+                <p class="mb-0" >{{post.content}}</p>
+            </div>
+            <div class="col-lg-3 col-md-6 align-self-center justify-content-center">
+                <div class="adminpannel-text" style="text-align:center;padding-top:30%;padding-bottom: 30%;">
+                    <h3 class="text-muted">
+                        Severity: 
+                        {% if post.severity=='1' %}
+                            <i class="fas fa-frown-open text-info h2"></i>
+                        {% elif post.severity=='2' %}
+                            <i class="fas fa-sad-tear text-info h2"></i>
+                        {% elif post.severity=='3' %}
+                            <i class="fas fa-sad-cry text-info h2"></i>
+                        {% elif post.severity=='4' %}
+                            <i class="fas fa-dizzy h2 text-info"></i>
+                        {% elif post.severity=='5' %}
+                            <i class="fas fa-radiation-alt h2 text-info"></i>
+                        {% endif %}
+                    </h3>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-6 align-self-center justify-content-center">
+                    <div class="adminpannel-text">
+                        {% if post.resolved==False %}
+                            <button class="btn btn-success btn-block" data-toggle="modal" data-target="#resolvePost" >Resolved</button>                    
+                        {% else %}
+                            <button class="btn btn-success btn-block" disabled>Resolved</button>                    
+                        {% endif %}
+                    </div>                            
+                </div>
+        </div>       
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="resolvePost" tabindex="-1" role="dialog" aria-labelledby="resolvePostLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="resolvePostLabel">Post resolved?</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <form action="{{url_for('resolve_post', post_id=post.id)}}" method="POST">
+                        <input type="submit" class="btn btn-success" value="Confirm">
+                    </form>
+                </div>
+              </div>
+            </div>
+        </div>
+{% endfor %}
+{% endblock desc %}

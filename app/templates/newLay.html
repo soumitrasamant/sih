@@ -1,0 +1,84 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="jumbotron jumbotron-fluid mb-0">
+    <div class="container">
+        {% block desc %}{% endblock desc %}    
+    </div>
+</div>
+<div class="footer p-3" style="background: #303952">
+    <div class="container p-3" >
+        <div class="row">
+            <div class="col-lg-3 col-md-3">
+                <img src="{{url_for('static', filename='KLE-Tech-logo-inv.png')}}" >
+            </div>
+            <div class="col-lg-3 col-md-3">
+                    <p class="h3 pb-2 pt-3 heading" style="border-top:3px solid grey;">LINKS</p>
+                    <ul style="list-style:none; padding-left:0px;">
+                            <li ><a href="{{url_for('posts')}}" >Home</a></li>
+                            <li ><a href="{{url_for('about')}}" >About Us</a></li>
+                            <li ><a href="{{url_for('works')}}" >What's it for</a></li>
+                    </ul>   
+            </div>
+            <div class="col-lg-4 col-md-3 ">
+                    <p class="h3 pb-2 pt-3 heading" style="border-top:3px solid grey;">REACH US</p>
+                    <ul style="list-style:none; padding-left:0px;">
+                            <li ><a href="#" >Gaara- sudeepgumaste19@protonmail.com</a></li>
+                            <li ><a href="#" >Vettel- sushmudalgi25@gmail.com</a></li>
+                            <li ><a href="#" >Gilfoyl- </a></li>
+                    </ul>   
+            </div>
+            <div class="col-lg-2 col-md-3">
+                    <p class="h3 pb-2 pt-3 heading" style="border-top:3px solid grey;">SOCIAL</p>    
+                        <div class="row d-flex justify-content-right">
+                            <div class="col-md-2 mr-2 ">
+                                <li><a href="#"><i class="fab fa-facebook-square fa-2x"><small class="d-md-none ml-2">Facebook</small></i></a></li>
+                            </div>
+                            <div class="col-md-2 mr-2">
+                                <li><a href="#"><i class="fab fa-instagram fa-2x"><small class="d-md-none ml-2">Instagram</small></i></a></li>
+                            </div>
+                            <div class="col-md-2 mr-2 ">
+                                <li><a href="#"><i class="fab fa-youtube-square fa-2x"><small class="d-md-none ml-2">Youtube</small></i></a></li>
+                            </div>
+                    </div>
+            </div>
+            
+        </div>
+    </div>
+</div>      
+<nav class="navbar footer-bottom">
+    <div class="container justify-content-center">
+        <p class="align-self-center pt-2 lead">Designed by Gaara and Vettel</p>
+    </div>
+</nav>
+<style>
+    .footer{
+        font: 'Roboto Slab';
+    }
+    .footer li{
+        list-style: none;
+    }
+    .footer img{
+        width: 100;
+        max-width: 100%;
+        max-height: 100%;
+    }
+    .footer a{
+        text-decoration: none;
+        color: white;
+        font-size: 13px;
+        display: block;
+    }
+    .footer p{
+        color: white;
+    }
+    
+    
+    .footer-bottom{
+        margin: 0;
+        padding: 0;
+        background: #1f2535;
+        color: #fff;
+    }
+
+</style>
+{% endblock content %}

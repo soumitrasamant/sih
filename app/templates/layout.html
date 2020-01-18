@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+         <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+        <!-- Popper JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        
+        <!-- Font awesome -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+        {% if title=='Login' or title == 'Register' or title=="Admin" %}
+        <!--Custom CSS-->
+            <link rel="stylesheet" type="text/css" href="../static/login.css">
+        {% endif %}
+        <link rel="stylesheet" type="text/css" href="../static/footer.css">            
+
+        {% if title %}
+        <title>{{title}}</title>
+        {% else %}
+        <title>Clean KLE</title>
+        {% endif %}
+</head>
+<body>
+    <nav class="navbar navbar-dark sticky-top navbar-expand-md shadow" style="background: #303952"><!--0a4c83-->
+        <div class="container">
+            <a href="{{ url_for('login') }}" class="navbar-brand mr-auto"><h3><i class="fab fa-envira"></i> Clean KLE</h3></a>
+            <button class="navbar-toggler " data-toggle="collapse" data-target="#menu"><span class="navbar-toggler-icon"></span></button>
+            <div class="navbar-collapse collapse " id="menu">
+                <ul class="navbar-nav ml-auto">
+                    {% if title!='How it works?' %}
+                        <li class="nav-item">
+                            <a href="{{ url_for('works') }}" class="nav-link">How It works</a>
+                        </li>
+                    {% endif %}
+
+                    {% if title!='About Us' %}
+                        <li class="nav-item">
+                            <a href="{{ url_for('about') }}" class="nav-link">About Us</a>
+                        </li>
+                    {% endif %}
+
+                    {% if (title=='How it works?' or title=='About Us') and current_user.is_authenticated==false %}
+                        <li class="nav-item">
+                            <a href="{{ url_for('login') }}" class="nav-link">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url_for('register') }}" class="nav-link">Register</a>
+                        </li>
+                    {% endif %}
+
+                    {% if title=='Login' or current_user.is_authenticate==false %}
+                        <li class="nav-item">
+                            <a href="{{ url_for('register') }}" class="nav-link">Register</a>
+                        </li>
+                    {% endif %}
+
+                    {% if current_user.is_authenticated %}
+                        {% if title!='New Post' %}
+                            <li class="nav-item">
+                                <a href="{{ url_for('newPost') }}" class="nav-link">New Post</a>
+                            </li>
+                        {% endif %}
+                        <li class="nav-item d-md-none">
+                            <a href="{{ url_for('account') }}" class="nav-link">Account</a>
+                        </li>
+                        <li class="nav-item d-md-none">
+                            <a href="{{ url_for('logout') }}" class="nav-link">Logout</a>
+                        </li>
+                        <li class="d-none d-md-block">
+                            <div class="dropdown">
+                                <button class="btn btn-link nav-link dropdown-toggle" data-toggle="dropdown">Account</button>
+                                <div class="dropdown-menu shadow-sm bg-light">
+                                    <a href="{{ url_for('account') }}" class="dropdown-item">Settings</a>
+                                    <a href="{{ url_for('logout') }}" class="dropdown-item">Logout</a>
+                                </div>
+                            </div>
+                        </li>
+                    {% endif %}
+                    {% if current_user.is_authenticated==false and title=='Register'%}
+                        <li class="nav-item">
+                            <a href="{{ url_for('login') }}" class="nav-link">Login</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+    {% with messages=get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category,message in messages %}
+                <div class="container">
+                    <div class="alert alert-{{ category }} text-center mt-2 mb-2">
+                        {{ message }}
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock content %}
+</body>
+</html>
